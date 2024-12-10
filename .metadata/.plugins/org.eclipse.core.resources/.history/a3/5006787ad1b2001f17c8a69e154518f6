@@ -1,0 +1,113 @@
+package com.cg.appointment.DTO;
+
+import com.cg.appointment.entity.Appointment;
+
+public class AppointmentDTO {
+    private int aid;   // Appointment ID
+    private int did;   // Doctor ID
+    private int pid;   // Patient ID
+    private String date;
+    private String issue;
+    private String status;
+    private double fees;
+
+    // Default constructor
+    public AppointmentDTO() {
+        super();
+    }
+
+    // Constructor with parameters
+    public AppointmentDTO(int aid, int did, int pid, String date, String issue, String status, double fees) {
+        super();
+        this.aid = aid;
+        this.did = did;
+        this.pid = pid;
+        this.date = date;
+        this.issue = issue;
+        this.status = status;
+        this.fees = fees;
+    }
+
+    // Getters and setters
+    public int getAid() {
+        return aid;
+    }
+
+    public void setAid(int aid) {
+        this.aid = aid;
+    }
+
+    public int getDid() {
+        return did;
+    }
+
+    public void setDid(int did) {
+        this.did = did;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getIssue() {
+        return issue;
+    }
+
+    public void setIssue(String issue) {
+        this.issue = issue;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public double getFees() {
+        return fees;
+    }
+
+    public void setFees(double fees) {
+        this.fees = fees;
+    }
+
+    // Convert Appointment entity to AppointmentDTO
+    public static AppointmentDTO fromEntity(Appointment appointment) {
+        return new AppointmentDTO(
+                appointment.getAid(),
+                appointment.getDid(),  // Assuming Appointment has a getDid() method
+                appointment.getPid(),   // Assuming Appointment has a getPid() method
+                appointment.getDate(),
+                appointment.getIssue(),
+                appointment.getStatus(),
+                appointment.getFees()
+        );
+    }
+
+    // Convert AppointmentDTO back to Appointment entity
+    public Appointment toEntity() {
+        return new Appointment(
+                this.aid,
+                this.did,
+                this.pid,  // Use pid here instead of id
+                this.date,
+                this.issue,
+                this.status,
+                this.fees
+        );
+    }
+}

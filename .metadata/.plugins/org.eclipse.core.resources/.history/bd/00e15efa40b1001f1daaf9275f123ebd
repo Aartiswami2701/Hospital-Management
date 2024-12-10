@@ -1,0 +1,18 @@
+package com.cg.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.cg.Entity.Doctor;
+
+public interface IDoctorService {
+	
+	List<Doctor> findAllDoctor();
+	public Optional<Doctor> findDoctorByID(int did);
+	public Doctor createDoctor(Doctor d);
+	public void deleteByIdDoctor(int id);
+	
+	public Doctor updateDoctor(Doctor o,int proid);
+	
+
+}

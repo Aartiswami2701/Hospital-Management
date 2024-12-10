@@ -1,0 +1,5 @@
+package com.cg.appointment.DTO;
+
+public class AppointmentDTO {
+
+}

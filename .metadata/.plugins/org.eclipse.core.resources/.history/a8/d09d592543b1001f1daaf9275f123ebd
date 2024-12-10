@@ -1,0 +1,67 @@
+package com.cg.patient.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cg.patient.entity.Patient;
+import com.cg.patient.exception.ResourceNotFoundException;
+import com.cg.patient.service.IPatientService;
+
+
+@RequestMapping("/api")
+@RestController
+public class PatientController {
+	
+	@Autowired
+	
+	IPatientService patientservice;
+//	@GetMapping(path = "/products", produces = {MediaType.APPLICATION_JSON_VALUE}) //we can use xml instead of json 
+	@GetMapping("/patients")
+	public List<Patient> getallpatients(){
+		return patientservice.findAllPatient();
+		
+	}
+	
+	
+	
+	@GetMapping(path="/patientbyid/{id}")
+	public Optional<Patient> getorderbyidrequestparam(@PathVariable int id) {
+		return patientservice.findPatientByID(id);	
+		
+	}
+	@PostMapping("/createpatient")
+	public Patient createmyorder(@RequestBody Patient p) {
+		
+		return  patientservice.createPatient(p);
+	
+	}
+	@DeleteMapping("/deletepatient/{id}")
+	public void deletemyorder(@PathVariable int id) {
+		
+	  patientservice.deleteByIdPatient(id) ;
+	  
+	}
+	
+
+	
+	@PutMapping("/patients/update")
+	public Patient updateorder(@RequestBody Patient o) {
+		int proid=o.getPid();
+		return patientservice.updatePatient(o, proid);
+		
+	}
+	
+
+	
+}

@@ -1,0 +1,60 @@
+package com.cg.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cg.appointment.entity.Appointment;
+import com.cg.repository.AppointmentRepository;
+
+@Service
+public class AppointmentService implements IAppointmentService{
+	
+	@Autowired
+	AppointmentRepository appointmentrepository;
+	@Override
+	public List<Appointment> findAllAppointment() {
+
+		
+		return appointmentrepository.findAll();
+	}
+	
+	@Override
+	public Appointment createAppointment(Appointment d) {
+		// TODO Auto-generated method stub
+		return appointmentrepository.save(d);
+	}
+	@Override
+	public void deleteByIdAppointment( int id) {
+		// TODO Auto-generated method stub
+		appointmentrepository.deleteById(id);
+		 
+	}
+	
+	@Override
+	public Appointment updateAppointment(Appointment o,int proid) {
+		// TODO Auto-generated method stub
+		Optional<Appointment> ord= findAppointmentByID(proid);
+		Appointment or=ord.get();
+		
+		or.setAid(o.getAid());
+		or.setDate(o.getDate());
+		or.setDid(o.getDid());
+		or.setPid(o.getPid());
+		or.setFees(o.getFees());
+		
+		or.setIssue(o.getIssue());
+		or.setStatus(o.getStatus());
+		
+		return appointmentrepository.save(or);
+	}
+	@Override
+	public Optional<Appointment> findAppointmentByID(int did) {
+		// TODO Auto-generated method stub
+		return appointmentrepository.findById(did);
+	}
+	
+
+}

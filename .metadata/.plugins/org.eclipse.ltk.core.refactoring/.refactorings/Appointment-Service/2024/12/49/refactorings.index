@@ -1,0 +1,17 @@
+1733209011601	Rename package 'com.cg'
+1733209030877	Rename package 'com.cg.Controller'
+1733209042994	Rename package 'com.cg.Entity'
+1733209054751	Rename package 'com.cg.exception'
+1733209067382	Rename package 'com.cg.repository'
+1733209077275	Rename package 'com.cg.service'
+1733336221295	Rename package 'com.example.model'
+1733336243086	Rename type 'FeignProduct'
+1733371236670	Rename type 'TestFeignClientFallback'
+1733371254258	Rename type 'FeignClients'
+1733372788265	Delete element
+1733379102135	Copy compilation unit
+1733379111644	Copy compilation unit
+1733379116409	Delete elements
+1733379155837	Rename type 'AppointmentFeignClientFallback'
+1733379173687	Rename type 'AppointmentFeignClients'
+1733419893416	Delete element

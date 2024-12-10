@@ -1,0 +1,32 @@
+package com.cg.appointment.client;
+
+import java.util.Collections;
+import java.util.List;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.stereotype.Component;
+
+import com.cg.appointment.entity.Appointment;
+
+
+@Component
+public class DoctorFeignClientFallback implements DoctorFeignClients {
+
+
+	@Override
+	public List<Appointment> doctorResponse1() {
+		// TODO Auto-generated method stub
+//		return Stream.of(
+//                new Appointment(11,22,22, "2014-07-10", "cold", "admit", 900.0),
+//                new Appointment(12,33,33,"29-02-2024","Fever","Discharge",250.0),
+//                new Appointment(13,44,44,"9-02-2024","Cough","Admit",450.0),
+//                new Appointment(14,55,55,"19-02-2024","NightBlindness","Discharge",550.0)
+//        ).collect(Collectors.toList());
+		
+		return Collections.emptyList();
+	}
+
+	
+	}

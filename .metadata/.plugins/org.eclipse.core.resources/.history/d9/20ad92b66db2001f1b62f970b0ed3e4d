@@ -1,0 +1,75 @@
+package com.cg.appointment.controller;
+
+import java.util.List;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.cg.appointment.entity.Appointment;
+import com.cg.appointment.service.FeignClients;
+import com.cg.appointment.service.IAppointmentService;
+
+
+@RequestMapping("/api")
+@RestController
+public class AppointmentController {
+	
+	@Autowired
+	IAppointmentService appointmentservice;
+	
+	@Autowired
+	FeignClients feignclient;
+	
+	  @GetMapping("/allDoctors") //http://localhost:9092/api/doctors
+		public  ResponseEntity<String> getAllDoctors() {
+		  return ResponseEntity.ok().body(feignclient.doctorResponse());
+		}	
+	
+	@GetMapping("/getallappointments")
+	public List<Appointment> getallappointment(){
+		return appointmentservice.findAllAppointment();
+		
+	}
+	
+	
+	
+	@GetMapping(path="/appointment/pat")
+	public Optional<Appointment> getappointmentByid(@PathVariable int id) {
+		
+		return appointmentservice.findAppointmentByID(id);
+		
+	}
+	@PostMapping("/createappointment")
+	public Appointment createmyorder(@RequestBody Appointment apt) {
+		
+		return  appointmentservice.createAppointment(apt);
+	
+	}
+	@DeleteMapping("/deleteappointment/{id}")
+	public void deletemyorder(@PathVariable int id) {
+		
+	  appointmentservice.deleteByIdAppointment(id) ;
+	  
+	}
+	
+
+	
+	@PutMapping("/appointment/update")
+	public Appointment updateorder(@RequestBody Appointment apt) {
+		int id=apt.getAid();
+		return appointmentservice.updateAppointment(apt, id);
+		
+	}
+	
+
+	
+}

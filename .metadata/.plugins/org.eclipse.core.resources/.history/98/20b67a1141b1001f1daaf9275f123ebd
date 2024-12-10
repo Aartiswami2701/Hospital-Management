@@ -1,0 +1,20 @@
+package com.cg.repository;
+
+
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.cg.doctor.entity.Doctor;
+
+
+@Repository
+public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
+//	public List<Doctor> findAllByname(String name);
+//	
+//	@Query("Select count(*) from Order where name=:name")
+//public int getCountByName(String name);
+	
+
+}

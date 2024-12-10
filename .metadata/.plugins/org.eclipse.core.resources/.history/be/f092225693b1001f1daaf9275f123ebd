@@ -1,0 +1,11 @@
+package com.cg.appointment.DTO;
+
+import jakarta.persistence.Column;
+
+public class AppointmentDTO {
+	private int aid;
+	private String Date;
+	private String issue;
+	private String status;
+	private double fees;
+}

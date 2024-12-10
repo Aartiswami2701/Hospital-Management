@@ -1,0 +1,32 @@
+package com.cg.doctor.DTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Builder
+@Data
+@Getter     
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class DoctorDTO {
+	private int did;
+	private String dname;
+    private String qualification;
+    
+    
+    public static DoctorDTO fromEntity(DoctorDTO doctorDTO)
+	{
+		return new DoctorDTO(doctorDTO.did,doctorDTO.dname,doctorDTO.qualification);
+	}
+	//from dto to product object
+    
+	public DoctorDTO toEntity()
+	{
+		return new Doctor(this.id,this.pName,this.price);
+	}
+}

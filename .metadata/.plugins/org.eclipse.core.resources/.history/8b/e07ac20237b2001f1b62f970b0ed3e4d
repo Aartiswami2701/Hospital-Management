@@ -1,0 +1,6 @@
+spring.application.name=Doctor-Service
+spring.cloud.config.uri=http://localhost:6000
+spring.cloud.config.name= Spring-security-config-cloud-doctor
+# It redirect the client service to read productws.propertie file from github repo or local filesystem as you specified.
+spring.cloud.config.name=Doctor-Service
+spring.profiles.active=dev

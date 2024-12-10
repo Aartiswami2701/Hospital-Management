@@ -1,0 +1,25 @@
+#spring.application.name=Spring-security-config-cloud-doctor
+#server.port=6000
+#
+## Externalize configuration using Git
+#spring.profiles.active=git
+#spring.cloud.config.server.git.uri=https://github.com/Aartiswami2701/Config-Server
+#spring.cloud.config.server.branch=main
+#spring.cloud.config.server.git.clone-on-start=true
+
+
+
+
+
+
+spring.application.name=config-server
+server.port= 8803
+ 
+# --------------Externialization using Git-------------
+spring.profiles.active=git
+spring.cloud.config.server.git.uri = https://github.com/Vaishnavi1761/config-server
+#spring.cloud.config.server.git.uri =  = https://github.com/fortrainees2020/spring-config-repo
+spring.cloud.config.server.branch = main
+#spring.cloud.config.server.branch = master
+spring.cloud.config.server.git.clone-on-start=true
+

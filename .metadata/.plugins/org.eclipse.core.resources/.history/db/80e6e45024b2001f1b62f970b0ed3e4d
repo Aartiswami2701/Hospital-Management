@@ -1,0 +1,29 @@
+spring.application.name=Doctor-service
+
+
+# Server Port
+server.port=9090
+
+# Logging Level
+#logging.level.root=DEBUG
+
+# Database Configuration (PostgreSQL)
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=root
+
+# Hibernate Settings for PostgreSQL
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+
+
+app.name=DoctortNotFound
+
+
+# Optional: Enable Hibernate show SQL (if you want to see the SQL in logs)
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.show_sql=true
+eureka.client.serviceUrl.defaultZone = http://localhost:8761/eureka
+
+eureka.client.register-with-eureka= true
+eureka.instance.instance-id=${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}eureka.instance.instance-id=${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}

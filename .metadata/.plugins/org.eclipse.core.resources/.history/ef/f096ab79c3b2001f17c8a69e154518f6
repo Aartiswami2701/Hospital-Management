@@ -1,0 +1,103 @@
+package com.cg.appointment.controller;
+
+import java.util.Date;
+
+import java.util.List;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.appointment.model.FeignAppointment;
+import com.cg.appointment.entity.Appointment;
+import com.cg.appointment.service.AppointmentFeignClients;
+import com.cg.appointment.service.IAppointmentService;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
+
+@RequestMapping("/api")
+@RestController
+public class AppointmentController {
+	
+	@Autowired
+	IAppointmentService appointmentservice;
+	
+	@Autowired
+	AppointmentFeignClients feignclient;
+	
+	  @GetMapping("/allDoctors") //http://localhost:9092/api/doctors
+		public  ResponseEntity<String> getAllDoctors() {
+		  return ResponseEntity.ok().body(feignclient.doctorResponse());
+		}	
+	  
+	  private static final String TEST_SERVICE = "TestService";
+	  private int attempt = 1;
+	  
+	  @GetMapping("/fallbackdoctors")
+	    @CircuitBreaker(name = TEST_SERVICE, fallbackMethod = "getAllDoctorsFallback")
+	    @Retry(name = TEST_SERVICE, fallbackMethod = "getAllDoctorsFallback")
+	    public ResponseEntity<List<Appointment>> getDoctors() {
+	        System.out.println("Retry method called " + attempt++ + " times " + " at " + new Date());
+	        List<Appointment> doctors = feignclient.doctorResponse1();
+	        return ResponseEntity.ok().body(doctors);
+	    }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	@GetMapping("/getallappointments")
+	public List<Appointment> getallappointment(){
+		return appointmentservice.findAllAppointment();
+		
+	}
+	
+	
+	
+	@GetMapping(path="/appointment/pat")
+	public Optional<Appointment> getappointmentByid(@PathVariable int id) {
+		
+		return appointmentservice.findAppointmentByID(id);
+		
+	}
+	@PostMapping("/createappointment")
+	public Appointment createmyorder(@RequestBody Appointment apt) {
+		
+		return  appointmentservice.createAppointment(apt);
+	
+	}
+	@DeleteMapping("/deleteappointment/{id}")
+	public void deletemyorder(@PathVariable int id) {
+		
+	  appointmentservice.deleteByIdAppointment(id) ;
+	  
+	}
+	
+
+	
+	@PutMapping("/appointment/update")
+	public Appointment updateorder(@RequestBody Appointment apt) {
+		int id=apt.getAid();
+		return appointmentservice.updateAppointment(apt, id);
+		
+	}
+	
+
+	
+}

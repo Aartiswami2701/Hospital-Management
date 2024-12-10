@@ -1,0 +1,24 @@
+package com.cg.appointment.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.cg.appointment.DTO.PatientDTO;
+
+import feign.Headers;
+
+@Headers("Content-Type: application/json")
+@FeignClient(name = "Patient-Service", url = "${PATIENT-SERVICE:http://localhost:9090}")//, fallback = AppointmentFeignClientFallback.class)
+
+
+public interface PatientFeignClient {
+	
+	    // Fetch list of doctors (appointments)
+//	    @GetMapping("/api/doctors")
+//	    List<Appointment> doctorResponse1();
+		
+	@GetMapping(path="/api/patientbyid/{pid}")
+	PatientDTO findByPatientId(@PathVariable int pid);}
+
+

@@ -1,0 +1,10 @@
+package com.cg.appointment.service;
+
+
+	@Headers("Content-Type: application/json")
+	@FeignClient(name="01B-Product-Client",url="${PRODUCT_SERVICE:http://localhost:9101}")
+	public interface FeignClients {
+		
+			@GetMapping("/api/products")
+			String productResp();
+}

@@ -1,0 +1,50 @@
+spring.application.name=Doctor-service
+
+springdoc.api-docs.enabled=true
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+
+
+# Server Port
+server.port=0
+
+# Logging Level
+#logging.level.root=DEBUG
+
+#-------------------------------Logging--------
+logging.level.root=WARN
+logging.level.org.springframework.web=ERROR
+logging.level.com.boot=DEBUG
+
+#Logging pattern for the console
+logging.pattern.console= "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+logging pattern for file
+logging.pattern.file= "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+logging.file=C:\Users\AASWAMI\eclipse-workspace\ProjectHospitalManagement\Doctor-Service\Doctorcontroller.log
+
+
+# Database Configuration (PostgreSQL)
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=root
+
+# Hibernate Settings for PostgreSQL
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+
+
+app.name=DoctortNotFound
+
+
+#spring.zipkin.baseUrl=http://localhost:9411
+#spring.sleuth.enabled=true
+#management.tracing.sampling.probability=1.0
+
+
+# Optional: Enable Hibernate show SQL (if you want to see the SQL in logs)
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.show_sql=true
+eureka.client.serviceUrl.defaultZone = http://localhost:8761/eureka
+
+eureka.client.register-with-eureka= true
+eureka.instance.instance-id=${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}eureka.instance.instance-id=${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}

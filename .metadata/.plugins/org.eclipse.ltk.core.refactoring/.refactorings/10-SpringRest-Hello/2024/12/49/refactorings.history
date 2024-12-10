@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;AuthFeign.java&apos; to &apos;Appointment-Service/src/main/java/com.cg.authfeign&apos;&#x0D;&#x0A;- Original project: &apos;10-SpringRest-Hello&apos;&#x0D;&#x0A;- Destination element: &apos;Appointment-Service/src/main/java/com.cg.authfeign&apos;&#x0D;&#x0A;- Original element: &apos;com.cg.authfeign.AuthFeign.java&apos;" description="Copy compilation unit" destination="=Appointment-Service/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.cg.authfeign" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.cg.authfeign{AuthFeign.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1733399205230" units="1" version="1.0"/>
+</session>

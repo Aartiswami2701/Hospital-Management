@@ -1,0 +1,5 @@
+package com.cg.doctor.DTO;
+
+public class DoctorDTO {
+
+}

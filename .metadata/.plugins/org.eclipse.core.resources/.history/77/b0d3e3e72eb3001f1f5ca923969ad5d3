@@ -1,0 +1,113 @@
+package com.cg.appointment.controller;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.cg.appointment.DTO.AppointmentDTO;
+import com.cg.appointment.DTO.DoctorDTO;
+import com.cg.appointment.client.DoctorFeignClients;
+import com.cg.appointment.client.PatientFeignClient;
+import com.cg.appointment.entity.Appointment;
+import com.cg.appointment.service.IAppointmentService;
+
+import com.netflix.discovery.converters.Auto;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
+@RequestMapping("/api")
+@RestController
+public class AppointmentController {
+
+    @Autowired
+    IAppointmentService appointmentservice;
+
+    @Autowired
+    DoctorFeignClients doctorfeignclient;
+    
+    @Autowired
+    PatientFeignClient patientfeigncliennt;
+    
+   
+
+    @GetMapping("/appointmentDetails/{id}")
+	public AppointmentDTO getAppointment(@PathVariable int id)
+	{
+		return appointmentservice.getAppointmentWithDoctorAndPatient(id);
+	}
+    
+    
+    private static final String Doctor_Service = "Doctor-Service";
+    private int attempt = 1;
+
+    // Fetch all doctors with fallback using Resilience4j circuit breaker and retry
+    @GetMapping("/fallbackdoctors")
+   @CircuitBreaker(name = Doctor_Service, fallbackMethod = "getAllDoctorsFallback")
+    @Retry(name = Doctor_Service, fallbackMethod = "getAllDoctorsFallback")
+    public ResponseEntity<List<DoctorDTO>> getDoctors() {
+        System.out.println("Retry method called " + attempt++ + " times " + " at " + new Date());
+        // Make the request to the feign client to fetch the list of doctors
+        List<DoctorDTO> doctors = doctorfeignclient.doctorResponse1();
+        
+        
+        return ResponseEntity.ok().body(doctors);
+    }
+
+    // Fallback method that uses the method defined in the Feign fallback class
+    public ResponseEntity<List<DoctorDTO>> getAllDoctorsFallback(Exception throwable) {
+        // Log the error for debugging
+        System.out.println("Fallback method triggered due to: " + throwable.getMessage());
+        throwable.printStackTrace();
+        
+        // Return the predefined fallback list of appointments from the feign client fallback
+        List<DoctorDTO> fallbackDoctors = doctorfeignclient.doctorResponse1();
+        
+        return ResponseEntity.ok().body(fallbackDoctors);
+    }
+
+    // Endpoint for getting all appointments
+//    @GetMapping("/getallappointments")
+//    public List<Appointment> getAllAppointments() {
+//        return appointmentservice.findAllAppointment();
+//    }
+
+    // Endpoint for fetching an appointment by ID
+    @GetMapping(path = "/appointment/pat/{id}")
+    public Optional<Appointment> getAppointmentById(@PathVariable int id) {
+        return appointmentservice.findAppointmentByID(id);
+    }
+
+    // Endpoint for creating a new appointment
+    @PostMapping("/createappointment")
+    public Appointment createAppointment(@RequestBody Appointment apt) {
+        return appointmentservice.createAppointment(apt);
+    }
+
+    // Endpoint for deleting an appointment by ID
+    @DeleteMapping("/deleteappointment/{id}")
+    public void deleteAppointment(@PathVariable int id) {
+        appointmentservice.deleteByIdAppointment(id);
+    }
+
+    // Endpoint for updating an existing appointment
+    @PutMapping("/appointment/update")
+    public Appointment updateAppointment(@RequestBody Appointment apt) {
+        int id = apt.getAid();
+        return appointmentservice.updateAppointment(apt, id);
+    }
+    @GetMapping(path = "/appointments", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public List<Appointment> getAppointment(@ RequestHeader("Authorization") String token){
+		System.out.println("Hello");
+		if (appointmentservice.hasPermission(token))
+			  return appointmentservice.findAllAppointment();
+		else
+			return null;
+	    }
+		
+	}

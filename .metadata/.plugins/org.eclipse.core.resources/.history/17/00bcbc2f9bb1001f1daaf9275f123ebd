@@ -1,0 +1,12 @@
+package com.cg.appointment.service;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+import feign.Headers;
+
+@Headers("Content-Type: application/json")
+@FeignClient(name="Doctor-Service",url="${DOCTOR-SERVICE:http://localhost:9090}")//DOCTOR port9090
+public interface FeignClients {
+	@GetMapping("/api/products")
+	String productResp();
+}

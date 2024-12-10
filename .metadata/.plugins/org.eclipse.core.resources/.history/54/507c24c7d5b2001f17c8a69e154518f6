@@ -1,0 +1,5 @@
+package com.cg.doctor.DAO;
+
+public class DoctorDAO {
+
+}

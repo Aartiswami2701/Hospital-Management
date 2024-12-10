@@ -1,0 +1,26 @@
+package com.cg.appointment.service;
+
+import java.util.List;
+
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.cg.appointment.entity.Appointment;
+
+import feign.Headers;
+
+@Headers("Content-Type: application/json")
+@FeignClient(name="Doctor-Service",url="${DOCTOR-SERVICE:http://localhost:9090}",fallback=AppointmentFeignClientFallback.class)//DOCTOR port9090
+public interface AppointmentFeignClients {
+	
+	@GetMapping("/api/doctors")	
+	String doctorResponse();
+	
+//	@GetMapping("/api/doctors")
+//	List<Appointment> doctorResponse1();
+	
+	@RequestMapping(method = RequestMethod.GET,value = "/notfount")
+	String getException();
+}

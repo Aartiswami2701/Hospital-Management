@@ -1,0 +1,22 @@
+package com.cg.appointment.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.stereotype.Component;
+
+import com.appointment.model.FeignAppointment;
+
+@Component
+public class AppointmentFeignClientFallback implements AppointmentFeignClients {
+
+
+	
+
+	@Override
+	public String doctorResponse() {
+		// TODO Auto-generated method stub
+		return doctorResponse();
+	}
+}

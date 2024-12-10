@@ -1,0 +1,13 @@
+package com.cg.authfeign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+ 
+//@Headers("Content-Type: application/json")
+//@FeignClient(name = "emp-ws", url = "${feign.url}")
+@FeignClient(name = "APPOINTMENT_SERVICE", url = "${APPOINTMENT_SERVICE:http://localhost:8080}")
+public interface AuthFeign {
+	@GetMapping("/validate") 
+	public boolean getTokenValidity(@RequestHeader("Authorization") String token);
+}

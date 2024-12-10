@@ -1,0 +1,87 @@
+package com.cg.appointment.DTO;
+
+import com.cg.appointment.entity.Appointment;
+
+
+public class AppointmentDTO {
+	private int aid;
+	private int did;
+	private int pid;
+	private String Date;
+	private String issue;
+	private String status;
+	private double fees;
+	public AppointmentDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public AppointmentDTO(int aid, int did, int pid, String date, String issue, String status, double fees) {
+		super();
+		this.aid = aid;
+		this.did = did;
+		this.pid = pid;
+		Date = date;
+		this.issue = issue;
+		this.status = status;
+		this.fees = fees;
+	}
+	
+
+	public int getDid() {
+		return did;
+	}
+
+	public void setDid(int did) {
+		this.did = did;
+	}
+
+	public int getPid() {
+		return pid;
+	}
+
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+
+	public int getAid() {
+		return aid;
+	}
+	public void setAid(int aid) {
+		this.aid = aid;
+	}
+	public String getDate() {
+		return Date;
+	}
+	public void setDate(String date) {
+		Date = date;
+	}
+	public String getIssue() {
+		return issue;
+	}
+	public void setIssue(String issue) {
+		this.issue = issue;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public double getFees() {
+		return fees;
+	}
+	public void setFees(double fees) {
+		this.fees = fees;
+	}
+	
+	public static AppointmentDTO fromEntity(Appointment appointment)
+	{
+		return new AppointmentDTO(appointment.getAid(),appointment.getDate(),appointment.getIssue(),appointment.getStatus(),appointment.getFees());
+	}
+	//from dto to product object
+	public Appointment toEntity()
+	{
+		return new Appointment
+	}
+}
